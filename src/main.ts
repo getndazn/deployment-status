@@ -26,7 +26,7 @@ async function run() {
     const state = core.getInput("state") as DeploymentState;
 
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
-    console.log(payload)
+    console.log(payload["deployment"])
     await client.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: parseInt(deploymentId),
