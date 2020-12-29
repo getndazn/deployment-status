@@ -29,7 +29,7 @@ async function run() {
 
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
     console.log(payload["deployment"])
-    console.log(payload["deployment.id"])
+    console.log(payload.deployment.id)
     await client.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: parseInt(deploymentId),
