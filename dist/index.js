@@ -3218,7 +3218,8 @@ function run() {
         try {
             const context = github.context;
             const defaultUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
-            const payload = JSON.stringify(context.payload, undefined, 2);
+            const payloadStr = JSON.stringify(context.payload, undefined, 2);
+            const payload = JSON.parse(payloadStr);
             const token = fs_1.default.readFileSync('/home/runner/.gittoken', 'utf8').replace("\n", "");
             const url = core.getInput("target_url", { required: false }) || defaultUrl;
             const description = core.getInput("description", { required: false }) || "";
@@ -3227,6 +3228,7 @@ function run() {
             const state = core.getInput("state");
             const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
             console.log(payload["deployment"]);
+            console.log(payload["deployment.id"]);
             yield client.repos.createDeploymentStatus(Object.assign({}, context.repo, { deployment_id: parseInt(deploymentId), state, log_url: defaultUrl, target_url: url, description, environment_url: environmentUrl }));
         }
         catch (error) {
