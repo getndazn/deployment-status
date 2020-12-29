@@ -1,5 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
+import fs from 'fs';
 
 type DeploymentState =
   | "error"
@@ -15,7 +16,7 @@ async function run() {
     const context = github.context;
     const defaultUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
 
-    const token = core.getInput("token", { required: true });
+    const token = fs.readFileSync('/home/runner/.gittoken','utf8').replace("\n", "");
     const url = core.getInput("target_url", { required: false }) || defaultUrl;
     const description = core.getInput("description", { required: false }) || "";
     const deploymentId = core.getInput("deployment_id");
