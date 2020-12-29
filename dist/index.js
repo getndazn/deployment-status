@@ -3218,7 +3218,6 @@ function run() {
         try {
             const context = github.context;
             const defaultUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
-            console.log(context);
             const payloadStr = JSON.stringify(context.payload, undefined, 2);
             const payload = JSON.parse(payloadStr);
             const token = fs_1.default.readFileSync('/home/runner/.gittoken', 'utf8').replace("\n", "");
